@@ -654,65 +654,97 @@ function endGame(){
    GLOBAL LEADERBOARD — JSONBin.io
    ─────────────────────────────────────────────
    SETUP (one time):
-   1. Go to https://jsonbin.io and create a free account
-   2. Click "Create Bin", paste: {"scores":[]}  → Save
-   3. Copy the Bin ID (looks like: 65f3a1234abc...)
-   4. Go to API Keys → create a key → copy it
-   5. Paste both below:
+   1. Go to https://jsonbin.io — create a free account
+   2. Click "+ Create Bin", paste: {"scores":[]} → Save
+   3. Copy the Bin ID shown in the URL / dashboard
+   4. Go to API Keys → "+ Create Access Key" → copy it
+   5. Paste both values below:
 ═══════════════════════════════════════════════ */
 var BIN_ID  = '69c109e8aa77b81da90e3af0';
-var BIN_KEY = '$2a$10$NMx3pZ3rx3Keo/2/6fD8e.3PgpNkXebqpDXWtQjMoJ4Q.zy7oPIQ.';
+var BIN_KEY = '$2a$10$0WwAfeKcIJn7NIYkF3svTeIFiOBwO7qfw4MkzbVBKfA3wAbhgY8KO';
 var BIN_URL = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
 
-/* In-memory cache so UI never blocks */
 var lbCache = [];
+var lbLoaded = false;   // true once we have a fresh copy from the server
 
-/* Load leaderboard from JSONBin → update cache → render */
+/* ── READ from JSONBin ── */
 function loadLB(cb) {
   if (!BIN_ID || BIN_ID === 'PASTE_YOUR_BIN_ID_HERE') {
-    /* fallback to localStorage when not configured */
     try { lbCache = JSON.parse(localStorage.getItem('pab_lb_local')||'[]'); } catch(e){ lbCache=[]; }
+    lbLoaded = true;
     if (cb) cb();
     return;
   }
   fetch(BIN_URL + '/latest', {
     headers: { 'X-Master-Key': BIN_KEY, 'X-Bin-Meta': 'false' }
   })
-  .then(function(r){ return r.json(); })
-  .then(function(data){
-    lbCache = (data && Array.isArray(data.scores)) ? data.scores : [];
+  .then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(function(data) {
+    lbCache  = (data && Array.isArray(data.scores)) ? data.scores : [];
+    lbLoaded = true;
     if (cb) cb();
   })
-  .catch(function(){
-    /* network error: use whatever is cached */
+  .catch(function(err) {
+    console.warn('loadLB failed:', err);
+    /* fall back to local backup */
+    try { lbCache = JSON.parse(localStorage.getItem('pab_lb_local')||'[]'); } catch(e){ lbCache=[]; }
+    lbLoaded = true;
     if (cb) cb();
   });
 }
 
-/* Save leaderboard array back to JSONBin */
-function saveLB(scores) {
-  /* always persist locally as backup */
+/* ── WRITE to JSONBin ── */
+function writeLB(scores, cb) {
   try { localStorage.setItem('pab_lb_local', JSON.stringify(scores)); } catch(e){}
-
-  if (!BIN_ID || BIN_ID === 'PASTE_YOUR_BIN_ID_HERE') return;
+  if (!BIN_ID || BIN_ID === 'PASTE_YOUR_BIN_ID_HERE') { if (cb) cb(); return; }
   fetch(BIN_URL, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Master-Key': BIN_KEY
-    },
+    headers: { 'Content-Type': 'application/json', 'X-Master-Key': BIN_KEY },
     body: JSON.stringify({ scores: scores })
-  }).catch(function(){/* silent fail */});
+  })
+  .then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(function() { if (cb) cb(); })
+  .catch(function(err) { console.warn('writeLB failed:', err); if (cb) cb(); });
 }
 
-/* Add entry, sort, trim to top 10, save */
+/* ── ADD ENTRY: always reads fresh from server first, then writes ── */
 function saveEntry(name) {
-  var entry = { name:name, score:score, level:level, found:found };
-  lbCache.push(entry);
-  lbCache.sort(function(a,b){ return b.score-a.score || b.level-a.level; });
-  lbCache = lbCache.slice(0, 10);
-  saveLB(lbCache);
+  var entry = { name: name, score: score, level: level, found: found };
+
+  /* Show optimistic local update immediately */
+  var optimistic = lbCache.slice();
+  optimistic.push(entry);
+  optimistic.sort(function(a,b){ return b.score-a.score || b.level-a.level; });
+  lbCache = optimistic.slice(0, 10);
   renderLBFromCache('lbgo', true);
+
+  /* Then do a fresh read → merge → write to avoid overwriting other players' scores */
+  if (!BIN_ID || BIN_ID === 'PASTE_YOUR_BIN_ID_HERE') {
+    writeLB(lbCache, null);
+    return;
+  }
+  fetch(BIN_URL + '/latest', {
+    headers: { 'X-Master-Key': BIN_KEY, 'X-Bin-Meta': 'false' }
+  })
+  .then(function(r) { return r.ok ? r.json() : Promise.reject('HTTP ' + r.status); })
+  .then(function(data) {
+    var fresh = (data && Array.isArray(data.scores)) ? data.scores : [];
+    fresh.push(entry);
+    fresh.sort(function(a,b){ return b.score-a.score || b.level-a.level; });
+    lbCache = fresh.slice(0, 10);
+    renderLBFromCache('lbgo', true);
+    writeLB(lbCache, null);
+  })
+  .catch(function(err) {
+    console.warn('saveEntry fetch failed, writing optimistic:', err);
+    writeLB(lbCache, null);
+  });
 }
 
 function startCD(){
