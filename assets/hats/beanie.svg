@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Beanie body -->
+  <rect fill="#cc3333" x="7"  y="5"  width="18" height="7"/>
+  <!-- Brim fold -->
+  <rect fill="#aa2222" x="7"  y="10" width="18" height="2"/>
+  <!-- Pompom -->
+  <rect fill="white"   x="13" y="2"  width="6"  height="4"/>
+  <rect fill="white"   x="12" y="3"  width="8"  height="2"/>
+  <!-- Stripe -->
+  <rect fill="#ff6666" x="7"  y="7"  width="18" height="1"/>
+  <rect fill="#ffcccc" x="7"  y="9"  width="18" height="1"/>
+</svg>

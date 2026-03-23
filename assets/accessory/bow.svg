@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <rect fill="#ff1177" x="13" y="9"  width="3"  height="3"/>
+  <rect fill="#ff1177" x="16" y="9"  width="3"  height="3"/>
+  <rect fill="#ff66aa" x="15" y="10" width="2"  height="1"/>
+  <!-- Left wing -->
+  <rect fill="#ff1177" x="10" y="8"  width="3"  height="4"/>
+  <rect fill="#ff1177" x="9"  y="9"  width="1"  height="2"/>
+  <!-- Right wing -->
+  <rect fill="#ff1177" x="19" y="8"  width="3"  height="4"/>
+  <rect fill="#ff1177" x="22" y="9"  width="1"  height="2"/>
+  <!-- Centre knot -->
+  <rect fill="#ff88cc" x="15" y="9"  width="2"  height="3"/>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Brim -->
+  <rect fill="#330055" x="6"  y="10" width="20" height="2"/>
+  <!-- Cone (staircase pixel) -->
+  <rect fill="#440066" x="15" y="1"  width="2"  height="1"/>
+  <rect fill="#440066" x="14" y="2"  width="4"  height="1"/>
+  <rect fill="#440066" x="13" y="3"  width="6"  height="1"/>
+  <rect fill="#440066" x="12" y="4"  width="8"  height="1"/>
+  <rect fill="#440066" x="11" y="5"  width="10" height="1"/>
+  <rect fill="#440066" x="10" y="6"  width="12" height="1"/>
+  <rect fill="#440066" x="9"  y="7"  width="14" height="1"/>
+  <rect fill="#440066" x="8"  y="8"  width="16" height="3"/>
+  <!-- Band -->
+  <rect fill="#7700cc" x="8"  y="9"  width="16" height="1"/>
+  <!-- Buckle -->
+  <rect fill="#ffcc00" x="14" y="9"  width="4"  height="1"/>
+  <rect fill="#330055" x="15" y="9"  width="2"  height="1"/>
+  <!-- Star tip -->
+  <rect fill="#ffcc00" x="15" y="0"  width="2"  height="1"/>
+  <rect fill="#ffcc00" x="14" y="1"  width="1"  height="1"/>
+  <rect fill="#ffcc00" x="17" y="1"  width="1"  height="1"/>
+</svg>

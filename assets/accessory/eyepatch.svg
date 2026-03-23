@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Patch over left eye -->
+  <rect fill="#111" x="7"  y="12" width="9"  height="7"/>
+  <rect fill="#222" x="8"  y="13" width="7"  height="5"/>
+  <!-- String across head -->
+  <rect fill="#555" x="6"  y="13" width="1"  height="1"/>
+  <rect fill="#555" x="5"  y="14" width="1"  height="2"/>
+  <rect fill="#555" x="6"  y="16" width="1"  height="1"/>
+  <rect fill="#555" x="16" y="12" width="8"  height="1"/>
+</svg>

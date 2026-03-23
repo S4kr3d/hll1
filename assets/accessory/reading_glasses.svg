@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Left lens frame only -->
+  <rect fill="#8866aa" x="7"  y="13" width="8"  height="5"/>
+  <rect fill="rgba(200,220,255,0.15)" x="8" y="13" width="6" height="5"/>
+  <!-- Highlight -->
+  <rect fill="rgba(255,255,255,0.35)" x="8" y="14" width="2" height="1"/>
+  <!-- Right lens -->
+  <rect fill="#8866aa" x="17" y="13" width="8"  height="5"/>
+  <rect fill="rgba(200,220,255,0.15)" x="18" y="13" width="6" height="5"/>
+  <rect fill="rgba(255,255,255,0.35)" x="18" y="14" width="2" height="1"/>
+  <!-- Bridge -->
+  <rect fill="#8866aa" x="15" y="14" width="2"  height="2"/>
+  <!-- Pupils still visible underneath -->
+  <rect fill="#111" x="11" y="14" width="2" height="2"/>
+  <rect fill="#111" x="20" y="14" width="2" height="2"/>
+  <!-- Temples -->
+  <rect fill="#8866aa" x="5"  y="14" width="2"  height="3"/>
+  <rect fill="#8866aa" x="25" y="14" width="2"  height="3"/>
+</svg>

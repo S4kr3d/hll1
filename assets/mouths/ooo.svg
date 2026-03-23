@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- O-shaped surprised mouth -->
+  <rect fill="#111" x="13" y="19" width="6" height="1"/>
+  <rect fill="#111" x="12" y="20" width="1" height="4"/>
+  <rect fill="#111" x="19" y="20" width="1" height="4"/>
+  <rect fill="#111" x="13" y="24" width="6" height="1"/>
+  <rect fill="#0a0008" x="13" y="20" width="6" height="4"/>
+</svg>

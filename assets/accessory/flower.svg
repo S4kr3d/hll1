@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Flower on side of head -->
+  <rect fill="#ff88ff" x="24" y="7"  width="1"  height="1"/>
+  <rect fill="#ff88ff" x="22" y="7"  width="1"  height="1"/>
+  <rect fill="#ff88ff" x="24" y="9"  width="1"  height="1"/>
+  <rect fill="#ff88ff" x="22" y="9"  width="1"  height="1"/>
+  <rect fill="#ff88ff" x="21" y="8"  width="1"  height="1"/>
+  <rect fill="#ff88ff" x="25" y="8"  width="1"  height="1"/>
+  <rect fill="#ff88ff" x="23" y="7"  width="1"  height="3"/>
+  <rect fill="#ff88ff" x="22" y="8"  width="3"  height="1"/>
+  <!-- Centre -->
+  <rect fill="#ffff00" x="23" y="8"  width="1"  height="1"/>
+  <!-- Stem -->
+  <rect fill="#33aa44" x="23" y="10" width="1"  height="2"/>
+</svg>

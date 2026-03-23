@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Left heart eye -->
+  <rect fill="#ff2255" x="8"  y="14" width="2" height="1"/>
+  <rect fill="#ff2255" x="11" y="14" width="2" height="1"/>
+  <rect fill="#ff2255" x="8"  y="15" width="5" height="2"/>
+  <rect fill="#ff2255" x="9"  y="17" width="3" height="1"/>
+  <rect fill="#ff2255" x="10" y="18" width="1" height="1"/>
+  <!-- Left highlight -->
+  <rect fill="white"   x="9"  y="14" width="1" height="1"/>
+  <!-- Right heart eye -->
+  <rect fill="#ff2255" x="18" y="14" width="2" height="1"/>
+  <rect fill="#ff2255" x="21" y="14" width="2" height="1"/>
+  <rect fill="#ff2255" x="18" y="15" width="5" height="2"/>
+  <rect fill="#ff2255" x="19" y="17" width="3" height="1"/>
+  <rect fill="#ff2255" x="20" y="18" width="1" height="1"/>
+  <rect fill="white"   x="19" y="14" width="1" height="1"/>
+</svg>

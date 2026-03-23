@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Left eye white -->
+  <rect fill="white" x="9"  y="13" width="5" height="4"/>
+  <rect fill="white" x="8"  y="14" width="1" height="2"/>
+  <rect fill="white" x="14" y="14" width="1" height="2"/>
+  <!-- Left pupil -->
+  <rect fill="#111" x="11" y="14" width="2" height="2"/>
+  <!-- Left catchlight -->
+  <rect fill="white" x="11" y="14" width="1" height="1"/>
+  <!-- Right eye white -->
+  <rect fill="white" x="18" y="13" width="5" height="4"/>
+  <rect fill="white" x="17" y="14" width="1" height="2"/>
+  <rect fill="white" x="23" y="14" width="1" height="2"/>
+  <!-- Right pupil -->
+  <rect fill="#111" x="20" y="14" width="2" height="2"/>
+  <!-- Right catchlight -->
+  <rect fill="white" x="20" y="14" width="1" height="1"/>
+</svg>

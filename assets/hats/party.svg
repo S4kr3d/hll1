@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Cone -->
+  <rect fill="#ff44aa" x="15" y="1"  width="2"  height="1"/>
+  <rect fill="#ff44aa" x="14" y="2"  width="4"  height="1"/>
+  <rect fill="#ff44aa" x="13" y="3"  width="6"  height="1"/>
+  <rect fill="#ff44aa" x="12" y="4"  width="8"  height="1"/>
+  <rect fill="#ff44aa" x="11" y="5"  width="10" height="1"/>
+  <rect fill="#ff44aa" x="10" y="6"  width="12" height="1"/>
+  <rect fill="#ff44aa" x="9"  y="7"  width="14" height="3"/>
+  <!-- Stripes on cone -->
+  <rect fill="#ffdd00" x="14" y="3"  width="1"  height="2"/>
+  <rect fill="#44ffcc" x="16" y="5"  width="1"  height="3"/>
+  <rect fill="#ffdd00" x="12" y="6"  width="1"  height="2"/>
+  <!-- Pompom -->
+  <rect fill="#ffff88" x="15" y="0"  width="2"  height="1"/>
+  <rect fill="#ffff88" x="14" y="1"  width="1"  height="1"/>
+  <rect fill="#ffff88" x="17" y="1"  width="1"  height="1"/>
+  <!-- Elastic -->
+  <rect fill="#888"    x="9"  y="10" width="14" height="1"/>
+</svg>

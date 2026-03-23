@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Headband arc -->
+  <rect fill="#333" x="9"  y="4"  width="14" height="2"/>
+  <rect fill="#333" x="7"  y="5"  width="2"  height="3"/>
+  <rect fill="#333" x="23" y="5"  width="2"  height="3"/>
+  <!-- Left ear cup -->
+  <rect fill="#222" x="5"  y="8"  width="4"  height="5"/>
+  <rect fill="#666" x="6"  y="9"  width="2"  height="3"/>
+  <!-- Right ear cup -->
+  <rect fill="#222" x="23" y="8"  width="4"  height="5"/>
+  <rect fill="#666" x="24" y="9"  width="2"  height="3"/>
+  <!-- LED lights -->
+  <rect fill="#00ffff" x="6"  y="10" width="1"  height="1"/>
+  <rect fill="#00ffff" x="24" y="10" width="1"  height="1"/>
+</svg>

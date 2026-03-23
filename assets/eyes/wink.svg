@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="crispEdges">
+  <!-- Left eye open (normal) -->
+  <rect fill="white" x="8"  y="13" width="6" height="4"/>
+  <rect fill="#111" x="10" y="14" width="2" height="2"/>
+  <rect fill="white" x="10" y="14" width="1" height="1"/>
+  <!-- Right eye: wink line -->
+  <rect fill="#111" x="18" y="15" width="6" height="2"/>
+  <!-- Lashes on wink -->
+  <rect fill="#111" x="18" y="14" width="1" height="1"/>
+  <rect fill="#111" x="20" y="13" width="1" height="1"/>
+  <rect fill="#111" x="22" y="13" width="1" height="1"/>
+  <rect fill="#111" x="23" y="14" width="1" height="1"/>
+</svg>
