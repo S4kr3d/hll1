@@ -643,14 +643,78 @@ function endGame(){
   document.getElementById('nameinp').value=''; submitted=false;
   document.getElementById('cdr').style.display='';
   document.getElementById('subarea').innerHTML='<button class="btn" onclick="doSubmit()" style="font-size:8px;padding:9px 20px;">✓ SUBMIT</button>';
-  renderLB('lbgo',true); showOv('sv-go');
+  showOv('sv-go');
+  loadLB(function(){ renderLBFromCache('lbgo',true); });
   setTimeout(function(){try{document.getElementById('nameinp').focus();}catch(e){}},300);
   startCD();
 }
 
 /* ─── LEADERBOARD ─────────────────────────── */
-function getLBD(){try{return JSON.parse(localStorage.getItem('pab10_lb')||'[]');}catch(e){return[];}}
-function saveLBD(d){localStorage.setItem('pab10_lb',JSON.stringify(d));}
+/* ═══════════════════════════════════════════════
+   GLOBAL LEADERBOARD — JSONBin.io
+   ─────────────────────────────────────────────
+   SETUP (one time):
+   1. Go to https://jsonbin.io and create a free account
+   2. Click "Create Bin", paste: {"scores":[]}  → Save
+   3. Copy the Bin ID (looks like: 65f3a1234abc...)
+   4. Go to API Keys → create a key → copy it
+   5. Paste both below:
+═══════════════════════════════════════════════ */
+var BIN_ID  = '69c109e8aa77b81da90e3af0';
+var BIN_KEY = '$2a$10$NMx3pZ3rx3Keo/2/6fD8e.3PgpNkXebqpDXWtQjMoJ4Q.zy7oPIQ.';
+var BIN_URL = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
+
+/* In-memory cache so UI never blocks */
+var lbCache = [];
+
+/* Load leaderboard from JSONBin → update cache → render */
+function loadLB(cb) {
+  if (!BIN_ID || BIN_ID === 'PASTE_YOUR_BIN_ID_HERE') {
+    /* fallback to localStorage when not configured */
+    try { lbCache = JSON.parse(localStorage.getItem('pab_lb_local')||'[]'); } catch(e){ lbCache=[]; }
+    if (cb) cb();
+    return;
+  }
+  fetch(BIN_URL + '/latest', {
+    headers: { 'X-Master-Key': BIN_KEY, 'X-Bin-Meta': 'false' }
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    lbCache = (data && Array.isArray(data.scores)) ? data.scores : [];
+    if (cb) cb();
+  })
+  .catch(function(){
+    /* network error: use whatever is cached */
+    if (cb) cb();
+  });
+}
+
+/* Save leaderboard array back to JSONBin */
+function saveLB(scores) {
+  /* always persist locally as backup */
+  try { localStorage.setItem('pab_lb_local', JSON.stringify(scores)); } catch(e){}
+
+  if (!BIN_ID || BIN_ID === 'PASTE_YOUR_BIN_ID_HERE') return;
+  fetch(BIN_URL, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Master-Key': BIN_KEY
+    },
+    body: JSON.stringify({ scores: scores })
+  }).catch(function(){/* silent fail */});
+}
+
+/* Add entry, sort, trim to top 10, save */
+function saveEntry(name) {
+  var entry = { name:name, score:score, level:level, found:found };
+  lbCache.push(entry);
+  lbCache.sort(function(a,b){ return b.score-a.score || b.level-a.level; });
+  lbCache = lbCache.slice(0, 10);
+  saveLB(lbCache);
+  renderLBFromCache('lbgo', true);
+}
+
 function startCD(){
   cdV=10; clearInterval(cdID);
   var arc=document.getElementById('cdrc'),num=document.getElementById('cdnum');
@@ -664,27 +728,32 @@ function startCD(){
 }
 function autoSub(){submitted=true;saveEntry((document.getElementById('nameinp').value.trim().toUpperCase()||'???').slice(0,8));afterSub();}
 function doSubmit(){if(submitted)return;submitted=true;clearInterval(cdID);saveEntry((document.getElementById('nameinp').value.trim().toUpperCase()||'???').slice(0,8));afterSub();}
-function saveEntry(name){
-  var lb=getLBD(); lb.push({name:name,score:score,level:level,found:found});
-  lb.sort(function(a,b){return b.score-a.score||b.level-a.level;}); saveLBD(lb.slice(0,10));
-  renderLB('lbgo',true);
-}
 function afterSub(){
   document.getElementById('cdr').style.display='none';
   document.getElementById('subarea').innerHTML=
     '<button class="btn" onclick="startGame()" style="font-size:8px;padding:9px 18px;margin-right:4px;">▶ PLAY</button>'+
     '<button class="btn sec" onclick="showOv(\'sv-start\')" style="font-size:8px;padding:9px 13px;">HOME</button>';
 }
-function renderLB(id,hi){
-  var lb=getLBD(),el=document.getElementById(id);
-  if(!lb.length){el.innerHTML='<div style="font-size:7px;color:#5544aa;text-align:center;padding:10px;">No scores yet!</div>';return;}
+
+function renderLBFromCache(id, hi) {
+  var el=document.getElementById(id);
+  if(!lbCache.length){
+    el.innerHTML='<div style="font-size:7px;color:#5544aa;text-align:center;padding:10px;">No scores yet!</div>';
+    return;
+  }
   var h='<div class="lbh">🏆 LEADERBOARD</div>';
-  lb.slice(0,7).forEach(function(e,i){
+  lbCache.slice(0,7).forEach(function(e,i){
     var hl=(hi&&e.score===lastScore)?' hi':'';
     h+='<div class="lbrow'+hl+'"><span class="r">'+(i+1)+'</span><span class="n">'+e.name+'</span><span class="s">'+e.score+'</span><span class="lv">Lv'+e.level+'</span></div>';
-  }); el.innerHTML=h;
+  });
+  el.innerHTML=h;
 }
-function openLB(){renderLB('lbmain',false);showOv('sv-lb');}
+
+function openLB(){
+  showOv('sv-lb');
+  document.getElementById('lbmain').innerHTML='<div style="font-size:7px;color:#5544aa;text-align:center;padding:10px;">Loading...</div>';
+  loadLB(function(){ renderLBFromCache('lbmain',false); });
+}
 
 /* ─── OVERLAY ─────────────────────────────── */
 function showOv(id){
